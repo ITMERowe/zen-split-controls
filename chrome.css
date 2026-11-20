@@ -1,0 +1,162 @@
+/* Split Controls. Selectors come from Zen 1.24.3b; a later Zen may rename them. */
+
+/* Zen's own split-pane overlay (drag handle and unsplit button): each pane has its own bar instead. */
+.zen-view-splitter-header-container {
+  display: none !important;
+}
+
+/* Toolbar button and its menu icons. */
+#zen-split-menu-button {
+  list-style-image: url("chrome://browser/skin/zen-icons/split.svg");
+  -moz-context-properties: fill, stroke;
+  fill: currentColor;
+}
+#zen-split-menu-button menuitem {
+  -moz-context-properties: fill, stroke;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+/* Control bar on every split pane. It is an overlay (position: absolute), so the page is pushed down by
+   its height below; Zen itself moves .browserContainer with margin-top elsewhere. */
+:root {
+  --zsc-bar-h: 34px;
+}
+.zsc-bar {
+  --zsc-h: 22px; /* pill, copy button and address field all share this height */
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: var(--zsc-bar-h);
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  background: var(--toolbar-bgcolor, #222);
+  color: light-dark(#1b1b1f, #fbfbfe); /* full-strength text; icons take this colour */
+}
+.browserSidebarContainer:has(> .zsc-bar) > .browserContainer {
+  margin-top: var(--zsc-bar-h);
+}
+
+/* Buttons are plain divs: the icon is a background image that takes the text colour. */
+div.zsc-btn {
+  -moz-context-properties: fill, fill-opacity;
+  fill: currentColor;
+  flex: none;
+  width: var(--zsc-h);
+  height: var(--zsc-h);
+  box-sizing: border-box;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px;
+  cursor: pointer;
+}
+div.zsc-btn[disabled] {
+  opacity: 0.4;
+  cursor: default;
+}
+div.zsc-btn:not([disabled]):hover {
+  background-color: color-mix(in srgb, currentColor 12%, transparent);
+}
+div.zsc-btn:focus-visible {
+  outline: 2px solid var(--zen-primary-color, currentColor);
+  outline-offset: -2px;
+}
+div.zsc-ext {
+  background-size: 16px; /* extension icons are drawn for 16px */
+}
+.zsc-exts {
+  display: flex;
+  gap: 2px;
+  margin-inline-start: 6px;
+}
+
+/* Narrow centred address pill; the copy-link button sits outside it, to its left. */
+.zsc-center {
+  flex: 0 1 410px;
+  min-width: 0;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.zsc-pill {
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+  height: var(--zsc-h);
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 18%, transparent);
+}
+/* Firefox styles HTML inputs itself (1px border, padding, min-height) and a normal rule here loses to
+   it; only !important wins. This makes the field fit the 22px pill with no border of its own. */
+.zsc-pill input.zsc-label {
+  flex: 1;
+  min-width: 0;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+  height: var(--zsc-h) !important;
+  padding: 0 6px !important;
+  box-sizing: border-box !important;
+  appearance: none;
+  outline: none;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  text-overflow: ellipsis;
+}
+.zsc-pill input.zsc-label:focus {
+  text-align: left;
+}
+
+/* Loading line along the bottom of a pane's address pill while its page loads. */
+.zsc-pill[loading]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  /* accent colour lightened so it stands out on the dark bar */
+  --zsc-load: color-mix(in srgb, var(--zen-primary-color, #8ab4f8) 60%, white);
+  background: linear-gradient(90deg, transparent, var(--zsc-load) 25%, var(--zsc-load) 75%, transparent) no-repeat;
+  background-size: 50% 100%;
+  animation: zsc-loading 1s linear infinite;
+}
+@keyframes zsc-loading {
+  from { background-position: -60% 0; }
+  to { background-position: 160% 0; }
+}
+
+/* While a split is active, Zen's own top controls are replaced by the panes' bars. They keep their
+   space (opacity/visibility, not display) so the rest of the toolbar does not shift. */
+:root[zsc-split] :is(#back-button, #forward-button, #stop-reload-button) {
+  visibility: hidden;
+}
+/* Pinned extension buttons: opacity, not visibility, because an extension popup will not open from an
+   anchor that is visibility:hidden. */
+:root[zsc-split] #nav-bar-customization-target > .unified-extensions-item {
+  opacity: 0;
+  pointer-events: none;
+}
+/* Zen's top address bar, except while Zen needs it (the tab picker, or the user focused it). */
+:root[zsc-split] #urlbar-container:not(:has(#urlbar[zen-newtab], #urlbar[focused], #urlbar[open])) {
+  opacity: 0;
+  pointer-events: none;
+}
+/* ...and then its container still paints a faint grey strip at the top: clear just that colour. */
+:root[zsc-split] #urlbar-container:has(#urlbar[zen-newtab], #urlbar[focused], #urlbar[open]) {
+  background: transparent !important;
+}
+/* Zen's own loading pill at the top centre: each pane shows its own loading line instead. */
+:root[zsc-split] #zen-loading-progress-bar {
+  display: none !important;
+}

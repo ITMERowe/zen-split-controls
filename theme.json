@@ -1,0 +1,27 @@
+{
+  "id": "zen-split-controls",
+  "name": "Split Controls",
+  "description": "Arc-style split view for Zen: an Add Right/Left/Top/Bottom Split menu and a control bar on every split pane (back, forward, reload, address field, copy link, site controls, extensions).",
+  "homepage": "https://github.com/ITMERowe/zen-split-controls",
+  "author": "ITMERowe",
+  "version": "0.1.0",
+  "style": {
+    "chrome": "chrome.css"
+  },
+  "scripts": {
+    "split-menu.uc.js": {
+      "include": [
+        "chrome://browser/content/browser.xhtml"
+      ]
+    }
+  },
+  "readme": "https://raw.githubusercontent.com/ITMERowe/zen-split-controls/main/README.md",
+  "tags": [
+    "split-view",
+    "toolbar"
+  ],
+  "fork": [
+    "zen"
+  ],
+  "ai": "yes"
+}
