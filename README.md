@@ -14,6 +14,16 @@ Arc-style split view for [Zen Browser](https://zen-browser.app).
 - Picking a page that is already open uses that tab. A pinned tab cannot be split by Zen, so it is split
   as a regular copy.
 
+## Screenshots
+
+The Split view menu in the toolbar:
+
+![The Split view menu with Add Right, Left, Top and Bottom Split](https://raw.githubusercontent.com/ITMERowe/zen-split-controls/main/screenshot/menu.png)
+
+Two split panes, each with its own control bar (back, forward, reload, address field, copy link, site controls, extensions, remove):
+
+![Two split panes, each with its own control bar](https://raw.githubusercontent.com/ITMERowe/zen-split-controls/main/screenshot/split-panes.png)
+
 ## Requirements
 
 - [Sine](https://github.com/CosmoCreeper/Sine) (this mod ships JavaScript).
