@@ -34,10 +34,10 @@
 
   // 16x16 menu icon: a thin rounded frame with a panel on the chosen side (one group opacity, so the
   // overlap is not shaded twice).
-  const icon = ([x, y, w, h]) =>
+  const icon = ([x, y, w, h], fill = "context-fill") =>
     "data:image/svg+xml," +
     encodeURIComponent(
-      `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="context-fill">` +
+      `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="${fill}">` +
         `<g opacity="0.5"><path fill-rule="evenodd" d="M4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2zm0 1.2a1.3 1.3 0 0 0-1.3 1.3v7a1.3 1.3 0 0 0 1.3 1.3h7a1.3 1.3 0 0 0 1.3-1.3v-7a1.3 1.3 0 0 0-1.3-1.3z"/>` +
         `<clipPath id="c"><rect x="2.7" y="2.7" width="10.6" height="10.6" rx="1.8"/></clipPath>` +
         `<rect clip-path="url(#c)" x="${x}" y="${y}" width="${w}" height="${h}"/></g></svg>`
@@ -165,10 +165,18 @@
     const item = document.createXULElement("menuitem");
     item.setAttribute("class", "menuitem-iconic");
     item.setAttribute("label", label);
+    item.panel = panel;
     item.setAttribute("image", icon(panel));
     item.addEventListener("command", () => addSplit(side));
     popup.appendChild(item);
   }
+  // A popup menu does not pass the theme's text colour on to context-fill, so the icons come out black
+  // on a dark theme. Each time the menu opens, repaint them in the menu's real text colour.
+  popup.addEventListener("popupshowing", () => {
+    for (const item of popup.querySelectorAll("menuitem.menuitem-iconic")) {
+      item.setAttribute("image", icon(item.panel, getComputedStyle(item).color));
+    }
+  });
   button.appendChild(popup);
   parent.appendChild(button);
 

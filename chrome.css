@@ -5,16 +5,11 @@
   display: none !important;
 }
 
-/* Toolbar button and its menu icons. */
+/* Toolbar button icon. (The menu icons are painted by the script, in the menu's real text colour.) */
 #zen-split-menu-button {
   list-style-image: url("chrome://browser/skin/zen-icons/split.svg");
   -moz-context-properties: fill, stroke;
   fill: currentColor;
-}
-#zen-split-menu-button menuitem {
-  -moz-context-properties: fill, stroke;
-  fill: currentColor;
-  stroke: currentColor;
 }
 
 /* Control bar on every split pane. It is an overlay (position: absolute), so the page is pushed down by
