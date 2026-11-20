@@ -5,7 +5,7 @@
   const parent = document.getElementById("nav-bar-customization-target");
   if (!parent || document.getElementById(ID)) return;
 
-  // <pure> No browser objects in here: tests/match.test.js runs this block on its own.
+  // Tab-matching helpers (no browser objects in here).
   // Same page? Ignore a trailing slash, keep the #fragment (single-page apps use it for different views).
   const normUrl = s => {
     try {
@@ -30,7 +30,6 @@
     );
     return matches.find(t => !t.pinned) || matches[0] || null;
   };
-  // </pure>
 
   // 16x16 menu icon: a thin rounded frame with a panel on the chosen side (one group opacity, so the
   // overlap is not shaded twice).

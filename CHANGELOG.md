@@ -7,5 +7,4 @@
 - Per-pane loading line; page content sits below the bar.
 - Picking a page that is already open reuses that tab; pinned tabs are split as a regular copy (and the copy is dropped if the pick is cancelled).
 - Pane buttons are keyboard-operable and have accessible names; `javascript:` is refused in the pane address field.
-- Test for the tab-matching rules (`tests/match.test.js`).
 - Menu icons are painted in the menu's real text colour, so they show on dark themes.

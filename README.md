@@ -20,10 +20,6 @@ Arc-style split view for [Zen Browser](https://zen-browser.app).
 - Tested on Zen 1.24.3b only. It uses private Zen/Firefox internals, so a newer Zen may break parts of it;
   if the split menu's internals are missing, the button greys out instead of failing.
 
-## Tests
-
-`node tests/match.test.js` checks the tab-matching rules (no browser needed).
-
 ## Known limits
 
 - Zen's drag handle for rearranging panes is not replaced; drag a tab onto a pane edge instead.
