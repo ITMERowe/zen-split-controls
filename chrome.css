@@ -28,7 +28,9 @@
   gap: 4px;
   padding: 0 6px;
   box-sizing: border-box;
-  background: var(--toolbar-bgcolor, #222);
+  /* Both follow the space's light/dark scheme (spaces can have different themes), so text and bar
+     always contrast. --toolbar-bgcolor is not defined by Zen, so it is not used. */
+  background: light-dark(#f2f2f5, #222);
   color: light-dark(#1b1b1f, #fbfbfe); /* full-strength text; icons take this colour */
 }
 .browserSidebarContainer:has(> .zsc-bar) > .browserContainer {
@@ -120,8 +122,8 @@ div.zsc-ext {
   position: absolute;
   inset: auto 0 0 0;
   height: 3px;
-  /* accent colour lightened so it stands out on the dark bar */
-  --zsc-load: color-mix(in srgb, var(--zen-primary-color, #8ab4f8) 60%, white);
+  /* accent colour pushed away from the bar colour (lighter on a dark bar, darker on a light one) */
+  --zsc-load: color-mix(in srgb, var(--zen-primary-color, #8ab4f8) 60%, light-dark(#000, #fff));
   background: linear-gradient(90deg, transparent, var(--zsc-load) 25%, var(--zsc-load) 75%, transparent) no-repeat;
   background-size: 50% 100%;
   animation: zsc-loading 1s linear infinite;

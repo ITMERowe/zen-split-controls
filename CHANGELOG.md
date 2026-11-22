@@ -8,3 +8,4 @@
 - Picking a page that is already open reuses that tab; pinned tabs are split as a regular copy (and the copy is dropped if the pick is cancelled).
 - Pane buttons are keyboard-operable and have accessible names; `javascript:` is refused in the pane address field.
 - Menu icons are painted in the menu's real text colour, so they show on dark themes.
+- The pane bar and its loading line follow each space's light/dark scheme, so they stay readable in light-themed spaces.
